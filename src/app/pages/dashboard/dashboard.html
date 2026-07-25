@@ -1,0 +1,197 @@
+<section class="dashboard-grid">
+
+  <div style="grid-column:1/-1;display:flex;justify-content:flex-end">
+    <a routerLink="/settings" class="icon-btn" aria-label="Impostazioni" style="font-size:1.2rem;text-decoration:none;display:flex;align-items:center;justify-content:center;width:40px;height:40px">⚙️</a>
+  </div>
+
+  @if (dashConfig.visible().some(w => w.id === 'agenda')) {
+  <article class="card">
+    <div class="card-header">
+      <h3>Agenda di oggi</h3>
+      <button routerLink="/agenda">Apri</button>
+    </div>
+    <ul class="timeline">
+      @for (item of data.agenda; track item.id) {
+        <li>
+          <span class="time">{{ item.time }}</span>
+          <div>
+            <strong>{{ item.title }}</strong>
+            <small>{{ item.location }}</small>
+          </div>
+        </li>
+      }
+    </ul>
+  </article>
+  }
+
+  @if (dashConfig.visible().some(w => w.id === 'tasks')) {
+  <article class="card">
+    <div class="card-header">
+      <h3>Tasks</h3>
+      <button routerLink="/tasks">Tutti</button>
+    </div>
+    <div class="checklist">
+      @for (task of data.tasks; track task.id) {
+        <label>
+          <input type="checkbox" [checked]="task.completed" (change)="toggleTask(task.id, $event)">
+          {{ task.title }}
+        </label>
+      }
+    </div>
+  </article>
+  }
+
+  @if (dashConfig.visible().some(w => w.id === 'budget')) {
+  <article class="card">
+    <div class="card-header">
+      <h3>Budget Mensile</h3>
+      <button routerLink="/finanze">Dettagli</button>
+    </div>
+    <div class="budget">
+      <h2>€ {{ data.finances.monthlyBudget.remaining }}</h2>
+      <span>disponibili</span>
+      <div class="progress">
+        <div [style.width.%]="budgetPercentage()"></div>
+      </div>
+      <small>{{ data.finances.monthlyBudget.spent }}€ spesi su {{ data.finances.monthlyBudget.total }}€</small>
+    </div>
+  </article>
+  }
+
+  @if (dashConfig.visible().some(w => w.id === 'deadlines')) {
+  <article class="card">
+    <div class="card-header">
+      <h3>Prossime Scadenze</h3>
+      <button routerLink="/documenti">Vedi tutte</button>
+    </div>
+    <div class="deadline-list">
+      @for (dl of data.deadlines; track dl.title) {
+        <div class="deadline" [class.danger]="dl.urgency === 'danger'" [class.warning]="dl.urgency === 'warning'">
+          <div>
+            <strong>{{ dl.title }}</strong>
+            <small>Scade {{ dl.date }}</small>
+          </div>
+          <span>{{ dl.amount ?? '📄' }}</span>
+        </div>
+      }
+    </div>
+  </article>
+  }
+
+  @if (dashConfig.visible().some(w => w.id === 'meals')) {
+  <article class="card">
+    <div class="card-header">
+      <h3>Meal Planner</h3>
+      <button routerLink="/cucina">Apri</button>
+    </div>
+    <div class="meal">
+      <div class="meal-item">
+        <span>🍳</span>
+        <div>
+          <strong>Colazione</strong>
+          <small>{{ data.meals.breakfast }}</small>
+        </div>
+      </div>
+      <div class="meal-item">
+        <span>🍝</span>
+        <div>
+          <strong>Pranzo</strong>
+          <small>{{ data.meals.lunch }}</small>
+        </div>
+      </div>
+      <div class="meal-item">
+        <span>🥩</span>
+        <div>
+          <strong>Cena</strong>
+          <small>{{ data.meals.dinner }}</small>
+        </div>
+      </div>
+    </div>
+  </article>
+  }
+
+  @if (dashConfig.visible().some(w => w.id === 'documents')) {
+  <article class="card">
+    <div class="card-header">
+      <h3>Documenti Recenti</h3>
+      <button routerLink="/documenti">Apri</button>
+    </div>
+    <div class="documents">
+      @for (doc of data.documents; track doc.id) {
+        <div class="document">{{ doc.icon }} {{ doc.name }}</div>
+      }
+    </div>
+  </article>
+  }
+
+  @if (dashConfig.visible().some(w => w.id === 'house')) {
+  <article class="card">
+    <div class="card-header">
+      <h3>Casa</h3>
+      <button routerLink="/casa">Apri</button>
+    </div>
+    <div class="quick-grid">
+      <div class="quick-item">
+        🏠 <span>Immobile</span>
+      </div>
+      <div class="quick-item">
+        🔧 <span>Manutenzioni</span>
+      </div>
+      <div class="quick-item">
+        📦 <span>Inventario</span>
+      </div>
+      <div class="quick-item">
+        🧾 <span>Garanzie</span>
+      </div>
+    </div>
+  </article>
+  }
+
+  @if (dashConfig.visible().some(w => w.id === 'health')) {
+  <article class="card">
+    <div class="card-header">
+      <h3>Salute</h3>
+      <button routerLink="/salute">Apri</button>
+    </div>
+    <div class="health">
+      <div class="health-stat">
+        ❤️
+        <strong>{{ data.health.heartRate }} bpm</strong>
+        <small>Frequenza</small>
+      </div>
+      <div class="health-stat">
+        🚶
+        <strong>{{ data.health.steps | number }}</strong>
+        <small>Passi</small>
+      </div>
+      <div class="health-stat">
+        😴
+        <strong>{{ data.health.sleep }}</strong>
+        <small>Sonno</small>
+      </div>
+    </div>
+  </article>
+  }
+
+  @if (dashConfig.visible().some(w => w.id === 'activity')) {
+  <article class="card wide">
+    <div class="card-header">
+      <h3>Attività Recenti</h3>
+    </div>
+    <div class="activity-feed">
+      @for (a of data.activities; track a.title) {
+        <div class="activity">
+          <span>{{ a.icon }}</span>
+          <div>
+            <strong>{{ a.title }}</strong>
+            <small>{{ a.detail }}</small>
+          </div>
+        </div>
+      }
+    </div>
+  </article>
+  }
+
+</section>
+
+

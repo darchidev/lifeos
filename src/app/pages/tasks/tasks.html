@@ -1,0 +1,134 @@
+<section class="dashboard-grid">
+
+  <!-- Nuovo task -->
+  <article class="card wide highlight">
+    <div class="card-header"><h3>Nuova attività</h3></div>
+    <div class="search-box">
+      <span>＋</span>
+      <input #newInput type="text" placeholder="Cosa devi fare?" (keydown.enter)="addTask(newInput)">
+    </div>
+  </article>
+
+  <!-- Oggi -->
+  <article class="card">
+    <div class="card-header">
+      <h3>Oggi</h3>
+      <span class="badge primary">{{ data.tasks.length }}</span>
+    </div>
+    <div class="checklist">
+      @for (task of data.tasks; track task.id) {
+        <label>
+          <input type="checkbox" [checked]="task.completed" (change)="toggleTask(task.id, $event)">
+          {{ task.title }}
+        </label>
+      }
+    </div>
+  </article>
+
+  <!-- Inbox -->
+  <article class="card">
+    <div class="card-header"><h3>Inbox</h3></div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">💡</div>
+        <div>
+          <div class="list-item-title">Idea nuova cucina</div>
+          <div class="list-item-meta">Da organizzare</div>
+        </div>
+      </div>
+    </div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">📌</div>
+        <div>
+          <div class="list-item-title">Controllare contratto</div>
+          <div class="list-item-meta">Senza data</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Prossimi -->
+  <article class="card">
+    <div class="card-header"><h3>Prossimi</h3></div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">📅</div>
+        <div>
+          <div class="list-item-title">Prenotare vacanza</div>
+          <div class="list-item-meta">Settimana prossima</div>
+        </div>
+      </div>
+      <span class="badge warning">Presto</span>
+    </div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">🏠</div>
+        <div>
+          <div class="list-item-title">Sistemare garage</div>
+          <div class="list-item-meta">Agosto</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Progetti -->
+  <article class="card wide">
+    <div class="card-header">
+      <h3>Progetti</h3>
+      <button>Gestisci</button>
+    </div>
+    <div class="quick-grid">
+      <div class="quick-item">🏡 <span>Casa</span><small>6 attività</small></div>
+      <div class="quick-item">✈️ <span>Viaggio</span><small>4 attività</small></div>
+      <div class="quick-item">💻 <span>Personale</span><small>8 attività</small></div>
+      <div class="quick-item">📚 <span>Formazione</span><small>3 attività</small></div>
+    </div>
+  </article>
+
+  <!-- Priorità -->
+  <article class="card">
+    <div class="card-header"><h3>Priorità</h3></div>
+    <div class="chips">
+      <div class="chip active">🔥 Importanti</div>
+      <div class="chip">⚡ Urgenti</div>
+      <div class="chip">🌱 Crescita</div>
+      <div class="chip">🧹 Routine</div>
+    </div>
+  </article>
+
+  <!-- Completati -->
+  <article class="card">
+    <div class="card-header"><h3>Completati</h3></div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">✅</div>
+        <div>
+          <div class="list-item-title">Pagata assicurazione</div>
+          <div class="list-item-meta">Completato oggi</div>
+        </div>
+      </div>
+    </div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">✅</div>
+        <div>
+          <div class="list-item-title">Caricato documento auto</div>
+          <div class="list-item-meta">Ieri</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Statistiche -->
+  <article class="card">
+    <div class="stat-card">
+      <div class="stat-label">Produttività settimana</div>
+      <div class="stat-value">82%</div>
+      <div class="progress-bar" style="margin-top:12px">
+        <div class="progress-fill" style="width:82%"></div>
+      </div>
+    </div>
+  </article>
+
+</section>

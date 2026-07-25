@@ -39,6 +39,12 @@ testem.log
 /typings
 __screenshots__/
 
+# Environment files
+atlas-credentials.env
+.env
+.env.local
+*.env
+
 # System files
 .DS_Store
 Thumbs.db

@@ -1,0 +1,32 @@
+<header class="topbar">
+  <div class="topbar-left">
+    <button class="hamburger" aria-label="Menu" (click)="ui.toggleSidebar()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div>
+      <h1>{{ clock.greeting }} Dac 👋</h1>
+      <p>{{ clock.dateString }} · {{ clock.timeString }}</p>
+    </div>
+  </div>
+
+  <div class="top-actions">
+    <button class="icon-btn" aria-label="Cerca" (click)="ui.openSearch()">🔍</button>
+    <button class="icon-btn" aria-label="Cambia tema" (click)="themeService.toggle()">
+      {{ themeService.theme() === 'light' ? '🌙' : '☀️' }}
+    </button>
+    <div class="user-menu" (click)="showMenu.set(!showMenu())" (keydown.escape)="showMenu.set(false)">
+      <button class="avatar" aria-label="Profilo" aria-haspopup="true" [attr.aria-expanded]="showMenu()">
+        {{ initials }}
+      </button>
+      @if (showMenu()) {
+        <div class="user-dropdown" role="menu">
+          <div class="dropdown-user">{{ auth.user()?.email }}</div>
+          <div class="dropdown-divider"></div>
+          <button role="menuitem" (click)="auth.logout()">🚪 Esci</button>
+        </div>
+      }
+    </div>
+  </div>
+</header>

@@ -1,0 +1,141 @@
+<section class="dashboard-grid">
+
+  <!-- Search -->
+  <div class="search-box" style="grid-column:span 3;margin-bottom:0">
+    <span>🔎</span>
+    <input type="text" placeholder="Cerca nella tua memoria...">
+  </div>
+
+  <!-- Categorie -->
+  <article class="card wide">
+    <div class="card-header">
+      <h3>Categorie</h3>
+      <button>Gestisci</button>
+    </div>
+    <div class="quick-grid">
+      <div class="quick-item">💡 <span>Idee</span><small>42 note</small></div>
+      <div class="quick-item">📚 <span>Libri</span><small>18 salvati</small></div>
+      <div class="quick-item">🎬 <span>Film</span><small>25 titoli</small></div>
+      <div class="quick-item">⭐ <span>Wishlist</span><small>13 elementi</small></div>
+    </div>
+  </article>
+
+  <!-- Idee -->
+  <article class="card">
+    <div class="card-header"><h3>Idee recenti</h3></div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">💡</div>
+        <div>
+          <div class="list-item-title">Organizzare viaggio in Giappone</div>
+          <div class="list-item-meta">Idea · ieri</div>
+        </div>
+      </div>
+    </div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">💻</div>
+        <div>
+          <div class="list-item-title">Nuovo progetto personale</div>
+          <div class="list-item-meta">Idea · settimana scorsa</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Libri -->
+  <article class="card">
+    <div class="card-header">
+      <h3>Libri</h3>
+      <button>Tutti</button>
+    </div>
+    <div class="file-card">
+      <div class="file-icon">📘</div>
+      <div class="file-info">
+        <strong>Atomic Habits</strong>
+        <span>Da leggere</span>
+      </div>
+    </div>
+    <div class="file-card" style="margin-top:10px">
+      <div class="file-icon">📗</div>
+      <div class="file-info">
+        <strong>Deep Work</strong>
+        <span>In corso</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- Media -->
+  <article class="card">
+    <div class="card-header"><h3>Film e serie</h3></div>
+    <div class="chips">
+      <div class="chip active">⭐ Preferiti</div>
+      <div class="chip">🎬 Da vedere</div>
+      <div class="chip">📺 In corso</div>
+    </div>
+  </article>
+
+  <!-- Note -->
+  <article class="card wide">
+    <div class="card-header">
+      <h3>Note personali</h3>
+      <button (click)="showAddModal.set(true)">+ Nuova</button>
+    </div>
+    @for (note of notes; track note.id) {
+      <div class="list-item">
+        <div class="list-item-left">
+          <div class="icon-box">📝</div>
+          <div>
+            <div class="list-item-title">{{ note.title }}</div>
+            <div class="list-item-meta">{{ note.content }} · {{ note.updated }}</div>
+          </div>
+        </div>
+      </div>
+    } @empty {
+      <p style="color:var(--text-tertiary);padding:0.5rem 0">Nessuna nota ancora.</p>
+    }
+  </article>
+
+  <!-- Wishlist -->
+  <article class="card">
+    <div class="card-header"><h3>Wishlist</h3></div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">🎧</div>
+        <div>
+          <div class="list-item-title">Nuove cuffie</div>
+          <div class="list-item-meta">Tecnologia</div>
+        </div>
+      </div>
+      <span class="badge warning">Da valutare</span>
+    </div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">🏕️</div>
+        <div>
+          <div class="list-item-title">Attrezzatura viaggio</div>
+          <div class="list-item-meta">Outdoor</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  @if (showAddModal()) {
+    <app-add-note-modal
+      (saved)="addNote($event)"
+      (dismissed)="showAddModal.set(false)"
+    />
+  }
+
+  <!-- Capture -->
+  <article class="card">
+    <div class="empty-state">
+      <div class="emoji">🧠</div>
+      <h3>Cattura un pensiero</h3>
+      <p>Salva idee, informazioni e cose importanti prima di dimenticarle.</p>
+      <br>
+      <button class="btn-primary" (click)="showAddModal.set(true)">+ Nuova nota</button>
+    </div>
+  </article>
+
+</section>

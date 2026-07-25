@@ -1,0 +1,53 @@
+<aside class="sidebar" [class.open]="ui.sidebarOpen()" role="navigation" aria-label="Navigazione principale">
+
+  <!-- Backdrop (mobile only) -->
+  @if (ui.sidebarOpen()) {
+    <div class="sidebar-backdrop" (click)="close()" aria-hidden="true"></div>
+  }
+
+  <div class="sidebar-inner">
+    <div class="logo">
+      <div class="logo-icon">🧠</div>
+      <div class="logo-text">
+        <h2>LifeOS</h2>
+        <span>Personal Dashboard</span>
+      </div>
+    </div>
+
+    <nav>
+      <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" (click)="close()">
+        <span>🏠</span> Dashboard
+      </a>
+      <a routerLink="/agenda" routerLinkActive="active" (click)="close()">
+        <span>📅</span> Agenda
+      </a>
+      <a routerLink="/tasks" routerLinkActive="active" (click)="close()">
+        <span>✅</span> Tasks
+      </a>
+      <a routerLink="/finanze" routerLinkActive="active" (click)="close()">
+        <span>💰</span> Finanze
+      </a>
+      <a routerLink="/documenti" routerLinkActive="active" (click)="close()">
+        <span>📄</span> Documenti
+      </a>
+      <a routerLink="/casa" routerLinkActive="active" (click)="close()">
+        <span>🏡</span> Casa
+      </a>
+      <a routerLink="/cucina" routerLinkActive="active" (click)="close()">
+        <span>🍝</span> Cucina
+      </a>
+      <a routerLink="/salute" routerLinkActive="active" (click)="close()">
+        <span>❤️</span> Salute
+      </a>
+      <a routerLink="/archivio" routerLinkActive="active" (click)="close()">
+        <span>📚</span> Archivio
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <a routerLink="/settings" routerLinkActive="active" (click)="close()">
+        <span>⚙️</span> Impostazioni
+      </a>
+    </div>
+  </div>
+</aside>

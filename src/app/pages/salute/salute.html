@@ -1,0 +1,135 @@
+<section class="dashboard-grid">
+
+  <!-- Parametri -->
+  <article class="card wide">
+    <div class="card-header"><h3>Parametri personali</h3></div>
+    <div class="dashboard-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stat-card">
+        <div class="stat-label">Passi oggi</div>
+        <div class="stat-value">{{ data.health.steps | number }}</div>
+        <div class="stat-change up">Obiettivo 10.000</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Sonno</div>
+        <div class="stat-value">{{ data.health.sleep }}</div>
+        <div class="stat-change up">Regolare</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Frequenza cardiaca</div>
+        <div class="stat-value">{{ data.health.heartRate }}</div>
+        <div class="stat-change">bpm</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Visite -->
+  <article class="card">
+    <div class="card-header">
+      <h3>Prossime visite</h3>
+      <button>+ Aggiungi</button>
+    </div>
+    @for (a of data.health.appointments; track a.title) {
+      <div class="list-item">
+        <div class="list-item-left">
+          <div class="icon-box">🦷</div>
+          <div>
+            <div class="list-item-title">{{ a.title }}</div>
+            <div class="list-item-meta">{{ a.date }}</div>
+          </div>
+        </div>
+        <span class="badge danger">Oggi</span>
+      </div>
+    }
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">👁️</div>
+        <div>
+          <div class="list-item-title">Controllo vista</div>
+          <div class="list-item-meta">Settembre</div>
+        </div>
+      </div>
+      <span class="badge warning">Presto</span>
+    </div>
+  </article>
+
+  <!-- Esami -->
+  <article class="card">
+    <div class="card-header"><h3>Esami recenti</h3></div>
+    <div class="file-card">
+      <div class="file-icon">🩸</div>
+      <div class="file-info">
+        <strong>Esami sangue.pdf</strong>
+        <span>Giugno 2026</span>
+      </div>
+    </div>
+    <div class="file-card" style="margin-top:10px">
+      <div class="file-icon">📄</div>
+      <div class="file-info">
+        <strong>Referto visita.pdf</strong>
+        <span>Maggio 2026</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- Abitudini -->
+  <article class="card">
+    <div class="card-header"><h3>Abitudini</h3></div>
+    <div class="checklist">
+      <label><input type="checkbox" checked> Bere acqua</label>
+      <label><input type="checkbox"> Allenamento</label>
+      <label><input type="checkbox" checked> Camminata</label>
+      <label><input type="checkbox"> Meditazione</label>
+    </div>
+  </article>
+
+  <!-- Promemoria -->
+  <article class="card">
+    <div class="card-header"><h3>Promemoria</h3></div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">💊</div>
+        <div>
+          <div class="list-item-title">Controllo periodico</div>
+          <div class="list-item-meta">Da pianificare</div>
+        </div>
+      </div>
+      <span class="badge primary">Nota</span>
+    </div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">📅</div>
+        <div>
+          <div class="list-item-title">Rinnovo certificato</div>
+          <div class="list-item-meta">Dicembre</div>
+        </div>
+      </div>
+      <span class="badge warning">Ricorda</span>
+    </div>
+  </article>
+
+  <!-- Storico -->
+  <article class="card wide">
+    <div class="card-header">
+      <h3>Storico salute</h3>
+      <button>Archivio</button>
+    </div>
+    <div class="quick-grid">
+      <div class="quick-item">🦷 <span>Dentista</span><small>Visite</small></div>
+      <div class="quick-item">🩺 <span>Medico</span><small>Controlli</small></div>
+      <div class="quick-item">🧪 <span>Analisi</span><small>Esami</small></div>
+      <div class="quick-item">🏃 <span>Sport</span><small>Attività</small></div>
+    </div>
+  </article>
+
+  <!-- Nuovo elemento -->
+  <article class="card">
+    <div class="empty-state">
+      <div class="emoji">❤️</div>
+      <h3>Aggiungi informazione</h3>
+      <p>Conserva visite, referti e note personali in un unico posto.</p>
+      <br>
+      <button class="btn-primary">+ Nuovo elemento</button>
+    </div>
+  </article>
+
+</section>
