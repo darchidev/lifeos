@@ -1,12 +1,12 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule],
   template: `
     <div class="login-page">
       <div class="login-card">
@@ -15,8 +15,8 @@ import { AuthService } from '../../services/auth.service';
         <p class="login-subtitle">Il tuo personal dashboard</p>
 
         <div class="login-tabs">
-          <button [class.active]="!isRegister" (click)="isRegister.set(false)">Accedi</button>
-          <button [class.active]="isRegister" (click)="isRegister.set(true)">Registrati</button>
+          <button [class.active]="!isRegister()" (click)="isRegister.set(false)">Accedi</button>
+          <button [class.active]="isRegister()" (click)="isRegister.set(true)">Registrati</button>
         </div>
 
         <form (ngSubmit)="submit()" class="login-form">
