@@ -1,4 +1,5 @@
-import { Component, inject, effect } from '@angular/core';
+import { Component, inject, effect, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { Sidebar } from './layout/sidebar/sidebar';
 import { Topbar } from './layout/topbar/topbar';
@@ -18,10 +19,13 @@ export class App {
   private readonly themeService = inject(ThemeService);
   readonly shortcuts = inject(ShortcutService);
   readonly clock = inject(LiveClockService);
+  private readonly platformId = inject(PLATFORM_ID);
 
   constructor() {
     effect(() => {
-      document.documentElement.classList.toggle('dark', this.themeService.theme() === 'dark');
+      if (isPlatformBrowser(this.platformId)) {
+        document.documentElement.classList.toggle('dark', this.themeService.theme() === 'dark');
+      }
     });
   }
 }

@@ -1,4 +1,6 @@
-import { Injectable, inject, effect } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { PLATFORM_ID } from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemeService } from './theme.service';
 import { UiService } from './ui.service';
@@ -8,9 +10,10 @@ export class ShortcutService {
   private readonly router = inject(Router);
   private readonly theme = inject(ThemeService);
   private readonly ui = inject(UiService);
+  private readonly platformId = inject(PLATFORM_ID);
 
   constructor() {
-    if (typeof window === 'undefined') return;
+    if (!isPlatformBrowser(this.platformId)) return;
     window.addEventListener('keydown', e => this.handle(e));
   }
 
