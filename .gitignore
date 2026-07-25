@@ -43,6 +43,7 @@ __screenshots__/
 atlas-credentials.env
 .env
 .env.local
+*.env.example
 *.env
 
 # System files
