@@ -1,0 +1,103 @@
+<section class="dashboard-grid">
+
+  <!-- Oggi -->
+  <article class="card wide">
+    <div class="card-header">
+      <h3>Oggi · {{ clock.dateString }}</h3>
+      <button (click)="showAddModal.set(true)">+ Evento</button>
+    </div>
+    <div class="timeline">
+      @for (ev of events; track ev.id) {
+        <div class="list-item">
+          <div class="list-item-left">
+            <div class="icon-box">{{ typeIcon(ev.type) }}</div>
+            <div>
+              <div class="list-item-title">{{ ev.title }}</div>
+              <div class="list-item-meta">{{ ev.time }} · {{ ev.location }}</div>
+            </div>
+          </div>
+          <span class="badge {{ typeBadge(ev.type) }}">{{ typeLabel(ev.type) }}</span>
+        </div>
+      } @empty {
+        <p style="color:var(--text-tertiary);padding:0.5rem 0">Nessun evento oggi.</p>
+      }
+    </div>
+  </article>
+
+  <!-- Prossimi giorni -->
+  <article class="card">
+    <div class="card-header"><h3>Prossimi giorni</h3></div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">📅</div>
+        <div>
+          <div class="list-item-title">Lunedì</div>
+          <div class="list-item-meta">Riunione progetto</div>
+        </div>
+      </div>
+    </div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">🚗</div>
+        <div>
+          <div class="list-item-title">Martedì</div>
+          <div class="list-item-meta">Tagliando auto</div>
+        </div>
+      </div>
+    </div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">🏠</div>
+        <div>
+          <div class="list-item-title">Venerdì</div>
+          <div class="list-item-meta">Manutenzione casa</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Ricorrenti -->
+  <article class="card">
+    <div class="card-header"><h3>Ricorrenti</h3></div>
+    <div class="chips">
+      <div class="chip active">🏋️ Palestra</div>
+      <div class="chip">💳 Pagamenti</div>
+      <div class="chip">🧹 Pulizie</div>
+      <div class="chip">📚 Studio</div>
+    </div>
+  </article>
+
+  <!-- Promemoria -->
+  <article class="card">
+    <div class="card-header"><h3>Promemoria</h3></div>
+    <div class="checklist">
+      <label><input type="checkbox"> Chiamare assicurazione</label>
+      <label><input type="checkbox"> Prenotare visita</label>
+      <label><input type="checkbox"> Rinnovare documento</label>
+    </div>
+  </article>
+
+  <!-- Settimana -->
+  <article class="card wide">
+    <div class="card-header">
+      <h3>Settimana</h3>
+      <button>Calendario</button>
+    </div>
+    <div class="quick-grid">
+      <div class="quick-item">LUN <span>2 eventi</span></div>
+      <div class="quick-item">MAR <span>1 evento</span></div>
+      <div class="quick-item">MER <span>3 eventi</span></div>
+      <div class="quick-item">GIO <span>0 eventi</span></div>
+      <div class="quick-item">VEN <span>2 eventi</span></div>
+      <div class="quick-item">SAB <span>1 evento</span></div>
+    </div>
+  </article>
+
+</section>
+
+@if (showAddModal()) {
+  <app-add-event-modal
+    (saved)="addEvent($event)"
+    (dismissed)="showAddModal.set(false)"
+  />
+}

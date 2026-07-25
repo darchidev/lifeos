@@ -1,0 +1,89 @@
+<section class="dashboard-grid">
+
+  <!-- Categorie -->
+  <article class="card wide">
+    <div class="card-header">
+      <h3>Categorie</h3>
+      <button>Gestisci</button>
+    </div>
+    <div class="quick-grid">
+      <div class="quick-item">🪪 <span>Personali</span></div>
+      <div class="quick-item">🏠 <span>Casa</span></div>
+      <div class="quick-item">🚗 <span>Auto</span></div>
+      <div class="quick-item">💼 <span>Lavoro</span></div>
+      <div class="quick-item">❤️ <span>Salute</span></div>
+      <div class="quick-item">💰 <span>Finanze</span></div>
+    </div>
+  </article>
+
+  <!-- Documenti recenti -->
+  <article class="card wide">
+    <div class="card-header">
+      <h3>Documenti recenti</h3>
+      <button>Vedi archivio</button>
+    </div>
+    @for (doc of data.documents; track doc.name) {
+      <div class="file-card">
+        <div class="file-icon">{{ doc.icon }}</div>
+        <div class="file-info">
+          <strong>{{ doc.name }}</strong>
+          <span>{{ doc.category }} · aggiornato {{ doc.updated }}</span>
+        </div>
+      </div>
+    }
+  </article>
+
+  <!-- Scadenze documenti -->
+  <article class="card">
+    <div class="card-header"><h3>Scadenze</h3></div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">🚗</div>
+        <div>
+          <div class="list-item-title">Assicurazione Auto</div>
+          <div class="list-item-meta">28 Luglio</div>
+        </div>
+      </div>
+      <span class="badge danger">Urgente</span>
+    </div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">🪪</div>
+        <div>
+          <div class="list-item-title">Carta Identità</div>
+          <div class="list-item-meta">Novembre</div>
+        </div>
+      </div>
+      <span class="badge warning">Presto</span>
+    </div>
+  </article>
+
+  <!-- Statistiche -->
+  <article class="card">
+    <div class="card-header"><h3>Archivio</h3></div>
+    <div class="stat-card">
+      <div class="stat-label">Documenti totali</div>
+      <div class="stat-value">247</div>
+      <div class="stat-change up">↑ 12 questo mese</div>
+    </div>
+  </article>
+
+  @if (showAddModal()) {
+    <app-add-document-modal
+      (saved)="addDocument($event)"
+      (dismissed)="showAddModal.set(false)"
+    />
+  }
+
+  <!-- Upload -->
+  <article class="card wide">
+    <div class="empty-state">
+      <div class="emoji">📤</div>
+      <h3>Carica un documento</h3>
+      <p>Trascina qui PDF, immagini o ricevute per conservarli nel tuo archivio personale.</p>
+      <br>
+      <button class="btn-primary" (click)="showAddModal.set(true)">+ Nuovo documento</button>
+    </div>
+  </article>
+
+</section>

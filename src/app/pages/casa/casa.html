@@ -1,0 +1,107 @@
+<section class="dashboard-grid">
+
+  <!-- Stato casa -->
+  <article class="card highlight">
+    <div class="card-header"><h3>Stato casa</h3></div>
+    <div class="dashboard-grid" style="grid-template-columns:1fr 1fr">
+      <div class="stat-card">
+        <div class="stat-label">Manutenzioni aperte</div>
+        <div class="stat-value">{{ data.house.maintenance.length }}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Garanzie attive</div>
+        <div class="stat-value">{{ data.house.warranties.length }}</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Manutenzioni -->
+  <article class="card wide">
+    <div class="card-header">
+      <h3>Manutenzioni</h3>
+      <button>+ Nuova</button>
+    </div>
+    @for (m of data.house.maintenance; track m.title) {
+      <div class="list-item">
+        <div class="list-item-left">
+          <div class="icon-box">{{ m.title.includes('condizionatore') ? '❄️' : '🔥' }}</div>
+          <div>
+            <div class="list-item-title">{{ m.title }}</div>
+            <div class="list-item-meta">{{ m.date }} · {{ m.status === 'pending' ? 'Da fare' : 'Programmato' }}</div>
+          </div>
+        </div>
+        <span class="badge" [class.warning]="m.status === 'pending'" [class.primary]="m.status === 'planned'">
+          {{ m.status === 'pending' ? 'Presto' : 'Programmato' }}
+        </span>
+      </div>
+    }
+  </article>
+
+  <!-- Stanze -->
+  <article class="card">
+    <div class="card-header"><h3>Stanze</h3></div>
+    <div class="chips">
+      <div class="chip active">🛋️ Salotto</div>
+      <div class="chip">🍳 Cucina</div>
+      <div class="chip">🛏 Camera</div>
+      <div class="chip">🚿 Bagno</div>
+      <div class="chip">🌱 Esterno</div>
+    </div>
+  </article>
+
+  <!-- Garanzie -->
+  <article class="card">
+    <div class="card-header">
+      <h3>Garanzie</h3>
+      <button>Archivio</button>
+    </div>
+    @for (w of data.house.warranties; track w.item) {
+      <div class="list-item">
+        <div class="list-item-left">
+          <div class="icon-box">{{ w.item === 'Frigorifero' ? '🧊' : '🧺' }}</div>
+          <div>
+            <div class="list-item-title">{{ w.item }}</div>
+            <div class="list-item-meta">Scade {{ w.expires }}</div>
+          </div>
+        </div>
+        <span class="badge success">Attiva</span>
+      </div>
+    }
+  </article>
+
+  <!-- Inventario -->
+  <article class="card wide">
+    <div class="card-header">
+      <h3>Inventario casa</h3>
+      <button>Cerca</button>
+    </div>
+    <div class="quick-grid">
+      <div class="quick-item">📺 <span>TV</span><small>Soggiorno</small></div>
+      <div class="quick-item">💻 <span>Computer</span><small>Studio</small></div>
+      <div class="quick-item">🪑 <span>Arredi</span><small>Casa</small></div>
+      <div class="quick-item">🔧 <span>Attrezzi</span><small>Garage</small></div>
+    </div>
+  </article>
+
+  <!-- Costi -->
+  <article class="card">
+    <div class="card-header"><h3>Costi casa</h3></div>
+    <div class="stat-card">
+      <div class="stat-label">Media mensile</div>
+      <div class="stat-value">€380</div>
+      <div class="stat-change up">Energia · Internet · Manutenzione</div>
+    </div>
+  </article>
+
+  <!-- Nuova nota -->
+  <article class="card">
+    <div class="empty-state">
+      <div class="emoji">🏠</div>
+      <h3>Aggiungi memoria casa</h3>
+      <p>Salva informazioni importanti, misure, fornitori e note.</p>
+      <br>
+      <button class="btn-primary">+ Nuova nota</button>
+    </div>
+  </article>
+
+</section>

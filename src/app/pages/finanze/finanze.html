@@ -1,0 +1,102 @@
+<section class="dashboard-grid">
+
+  <!-- Saldo -->
+  <article class="card highlight">
+    <div class="card-header"><h3>Patrimonio disponibile</h3></div>
+    <div class="budget">
+      <h2>€ {{ data.finances.balance | number }}</h2>
+      <span>saldo totale</span>
+    </div>
+  </article>
+
+  <!-- Budget -->
+  <article class="card">
+    <div class="card-header"><h3>Budget mese</h3></div>
+    <div class="stat-value">€{{ data.finances.monthlyBudget.remaining }}</div>
+    <div class="progress">
+      <div [style.width.%]="budgetPct()"></div>
+    </div>
+    <small>{{ data.finances.monthlyBudget.spent }}€ spesi su {{ data.finances.monthlyBudget.total }}€</small>
+  </article>
+
+  <!-- Obiettivi -->
+  <article class="card">
+    <div class="card-header"><h3>Obiettivi</h3></div>
+    <div class="list-item">
+      <div class="list-item-left">
+        <div class="icon-box">🏖️</div>
+        <div>
+          <div class="list-item-title">Vacanza</div>
+          <div class="list-item-meta">Obiettivo 2000€</div>
+        </div>
+      </div>
+    </div>
+    <div class="progress-container" style="margin-top:14px">
+      <div class="progress-label">
+        <span>1250€</span>
+        <span>62%</span>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" style="width:62%"></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- Conti -->
+  <article class="card">
+    <div class="card-header">
+      <h3>Conti</h3>
+      <button>Gestisci</button>
+    </div>
+    @for (acc of data.finances.accounts; track acc.name) {
+      <div class="list-item">
+        <div class="list-item-left">
+          <div class="icon-box">{{ acc.type === 'bank' ? '🏦' : acc.type === 'card' ? '💳' : '💵' }}</div>
+          <div>
+            <div class="list-item-title">{{ acc.name }}</div>
+            <div class="list-item-meta">{{ acc.type === 'bank' ? 'Banca' : acc.type === 'card' ? 'Prepagata' : 'Contante' }}</div>
+          </div>
+        </div>
+        <strong>{{ acc.amount }}€</strong>
+      </div>
+    }
+  </article>
+
+  <!-- Spese recenti -->
+  <article class="card wide">
+    <div class="card-header">
+      <h3>Ultime spese</h3>
+      <button (click)="showAddModal.set(true)">+ Nuova</button>
+    </div>
+    @for (ex of data.finances.recentExpenses; track ex.title) {
+      <div class="list-item">
+        <div class="list-item-left">
+          <div class="icon-box">🛒</div>
+          <div>
+            <div class="list-item-title">{{ ex.title }}</div>
+            <div class="list-item-meta">{{ ex.category }} · {{ ex.date }}</div>
+          </div>
+        </div>
+        <strong>-{{ ex.amount }}€</strong>
+      </div>
+    }
+  </article>
+
+  @if (showAddModal()) {
+    <app-add-expense-modal
+      (saved)="addExpense($event)"
+      (dismissed)="showAddModal.set(false)"
+    />
+  }
+
+  <!-- Abbonamenti -->
+  <article class="card">
+    <div class="card-header"><h3>Abbonamenti</h3></div>
+    <div class="chips">
+      @for (sub of data.finances.subscriptions; track sub.name) {
+        <div class="chip active">{{ sub.name }} {{ sub.amount }}€</div>
+      }
+    </div>
+  </article>
+
+</section>
