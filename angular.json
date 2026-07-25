@@ -29,8 +29,7 @@
             "outputMode": "server",
             "allowedCommonJsDependencies": ["mongodb"],
             "security": {
-              "allowedHosts": ["*"],
-              "trustProxyHeaders": true
+              "allowedHosts": ["*"]
             },
             "ssr": {
               "entry": "src/server.ts"
