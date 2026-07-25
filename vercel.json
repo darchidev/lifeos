@@ -1,10 +1,12 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": "angular",
   "buildCommand": "npx ng build",
   "outputDirectory": "dist/lifeos",
   "installCommand": "npm install",
   "devCommand": "npx ng serve --host 0.0.0.0",
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api/index" }
+  ],
   "headers": [
     {
       "source": "/ngsw.json",
