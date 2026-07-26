@@ -1,11 +1,15 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npx ng build",
-  "outputDirectory": "dist/lifeos",
+  "buildCommand": "bash scripts/vercel-build.sh",
+  "outputDirectory": "dist/lifeos/browser",
   "installCommand": "npm install",
   "devCommand": "npx ng serve --host 0.0.0.0",
+  "redirects": [
+    { "source": "/", "destination": "/login", "permanent": false }
+  ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/api/index" }
+    { "source": "/api/(.*)", "destination": "/api/index" },
+    { "source": "/(.*)", "destination": "/index.csr.html" }
   ],
   "headers": [
     {
